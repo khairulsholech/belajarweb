@@ -1,6 +1,15 @@
 <div class="container mt-5">
 	<div class="row">
 
+	<?php 
+	function rupiah($angka){
+
+		$hasil_rupiah = "Rp " . number_format($angka,0,',','.');
+		return $hasil_rupiah;
+		
+	}
+	?>
+
 		<div class="col-md-8">
 			<div class="card">
 				<div class="row">
@@ -15,7 +24,7 @@
 							<b>
 								<p><?= $product["Category"]; ?></p>
 							</b>
-							<p><?= $product["Price"]; ?></p>
+							<p><?= rupiah($product["Price"]); ?></p>
 						</div>
 					</div>
 				</div>
@@ -31,7 +40,7 @@
 					</div>
 					<div class="col-md-6">
 						<b>
-							<?= $product["Price"]; ?>
+							<?= rupiah($product["Price"]); ?>
 						</b>
 					</div>
 				</div>
@@ -41,7 +50,7 @@
 				<div class="total">
 					<b>
 						<p style="text-Align: right;">
-							Total Pembayaran : Rp <?= $product["Price"]; ?>
+							Total Pembayaran : <?= rupiah($product["Price"]); ?>
 						</p>
 					</b>
 				</div>
@@ -54,7 +63,7 @@
 					</b>
 					<ol>
 						<li>
-							Pembayaran dilakukan via transfer bank ke no. Rekening <b>1234857939274 a.n PT HP Store</b>
+							Pembayaran dilakukan via transfer bank ke no. Rekening <b>1234857939274 a.n PT HpNew</b>
 						</li>
 						<li>
 							Upload bukti pembayaran ke form di bawah ini.

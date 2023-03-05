@@ -4,8 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Product_model extends CI_Model {
 
   public function getData(){
-    $this->db->select('*');
+    $this->db->select('*, stores.StoreName');
     $this->db->from('products');
+		$this->db->join('stores', 'products.StoreID = stores.StoreID');
     $this->db->where('IsDeleted', 0);
 
   
@@ -31,7 +32,16 @@ class Product_model extends CI_Model {
       $this->db->select('*');
       $this->db->where('ProductID', $id);
       $records = $this->db->get('products');
-      $response = $records->row_array();
+      if ($records->num_rows() == 1) {
+        $row = $records->row();
+        $response = array(
+            'ProductID' => $row->ProductID,
+            'ProductName' => $row->ProductName,
+            'Category' => $row->Category,
+            'Price' => $row->Price,
+            'Image' => $row->Image
+        );
+    }
       return $response;
   }
 

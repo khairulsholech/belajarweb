@@ -19,7 +19,7 @@
 			</button>
 			<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="<?= base_url('Home/index') ?>">Home</a>
 					<a class="nav-link" href="#">Product</a>
 					<a class="nav-link" href="#">Store</a>
 				</div>

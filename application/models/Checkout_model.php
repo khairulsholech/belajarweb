@@ -16,7 +16,7 @@ class Checkout_model extends CI_Model {
         $this->db->join('products', 'products.ProductID = checkouts.ProductID');
         $this->db->join('stores', 'products.StoreID = stores.StoreID');
         // kondisi untuk persyaratan khusus data yang ingin diambil
-        $this->db->where('stores.UserID', $id);
+        $this->db->where('stores.StoreID', $id);
         // mengambil data dari query
         $q = $this->db->get();
         // ambil data dalam bentuk array

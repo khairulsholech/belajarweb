@@ -29,8 +29,8 @@
             <div class="col-12 h-100 d-flex justify-content-center align-items-center">
                 <div class="card shadow-lg p-2">
                     <div class="card-body">
-                        <h3 class="text-center mb-4">Login</h3>
-                        <form action="<?php echo base_url().'user/auth' ?>" method="post">
+                        <h3 class="text-center mb-4">Register</h3>
+                        <form action="<?php echo base_url().'user/register_submit' ?>" method="post">
                             <div class="mb-3">
                                 <label>Username</label>
                                 <input type="text" name="username" class="form-control">
@@ -39,9 +39,16 @@
                                 <label>Password</label>
                                 <input type="password" name="password" class="form-control">
                             </div>
-                            <input type="submit" value="Login" class="btn btn-md btn-primary mx-auto rounded-lg">
+                            <div class="mb-3">
+                                <label>Sebagai Admin Atau User</label>
+                                <select name="isAdmin" id="cars">
+                                  <option value="1">Admin</option>
+                                  <option value="0">User</option>
+                                </select>                       
+                            </div>
+                            <input type="submit" value="Register" class="btn btn-md btn-primary mx-auto rounded-lg">
 							<hr/>
-							<p>Belum mempunyai account?<a href="<?= base_url('user/viewRegister') ?>"> Klik disini</a></p>
+							<p>Sudah mempunyai account?<a href="<?= base_url('user/login') ?>"> Klik disini</a></p>
                         </form>
                     </div>
                 </div>

@@ -18,7 +18,7 @@
 
 	<?php foreach ($products as $product) : ?>
 	
-		<div class="col-md-3">
+		<div class="col-md-3 mt-4">
 			<div class="card" style="width: 18rem;">
 				<img src="<?= base_url('assets/img/'.$product["Image"]);?>" height="200px" class="card-img-top" alt="...">
 				<div class="card-body">

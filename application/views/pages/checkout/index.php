@@ -9,8 +9,8 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="table" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-bordered" id="table" width="100%" cellspacing="0" style="border: 1px solid black; width: 100%; border-collapse: collapse;">
+                    <thead class="table-head">
                         <tr>
                             <th>No.</th>
                             <th>Nama Product</th>

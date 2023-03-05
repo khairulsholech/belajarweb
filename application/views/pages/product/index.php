@@ -2,9 +2,10 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Product</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+        <a href="<?= base_url('Product/generatePDF') ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
     </div>
+	<?php echo validation_errors(); ?>
 
     <a href="<?php echo base_url().'index.php/Product/addProductView'; ?>" class="btn btn-primary btn-sm shadow-sm mb-3">Tambah Produk</a>
 
@@ -15,9 +16,11 @@
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Nama Toko</th>
                             <th>Nama Product</th>
                             <th>Kategori</th>
                             <th>Price</th>
+                            <th>Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,14 +33,16 @@
 						?>
                             <tr>
                             <td><?= $i++ ;?></td>
+                            <td><?= $product['StoreName'] ;?></td>
                             <td><?= $product['ProductName'] ;?></td>
                             <td><?= $product['Category'] ;?></td>
                             <td><?= $product['Price'] ;?></td>
+                            <td><img width="100px" height="100px" src="<?= base_url('assets/img/').$product['Image']; ?>" alt=""></td>
                             <td>
                             <!-- <a href="" class="btn btn-primary">Detail</a> -->
                             <a href="javascript:void(0)" class="btn btn-warning" data-toggle="modal" data-target="#modal-edit"
 								onclick="viewData(<?php echo (int)$product['ProductID'] ?>)">Ubah</a>
-                            <a href="<?php echo base_url().'index.php/Product/delete?id='.$product['ProductID']; ?>" class="btn btn-danger">Hapus</a>
+                            <a href="<?php echo base_url().'index.php/Product/delete?id='.$product['ProductID']; ?>" class="btn btn-danger" id="deleteData" >Hapus</a>
                             </td>
                             </tr>
 						<?php } ?>
@@ -84,6 +89,13 @@
 									999999999</p>
 							</div>
 						</div>
+						<div class="col-lg-12 d-flex justify-content-center">
+							<div class="form-group mb-3 w-50">
+								<img id="image-preview" class="img-preview img-fluid mb-3 col-sm-5 d-block">
+								<label for="">Choose Image</label>
+								<input type="file" name="image" id="image" onchange="previewImage()" class="form-control">
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -98,10 +110,13 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 crossorigin="anonymous"></script>
 <script>
+	const baseUrl = `<?php echo base_url(); ?>`;
     const idProduk = document.getElementById('product_id') //disini error
 	const produk = document.getElementById('produk')
 	const kategori = document.getElementById('kategori')
 	const harga = document.getElementById('harga')
+	const imagePreview = document.getElementById('image-preview');
+	const image = document.getElementById('image')
     const viewData = (idData) => {
 		$.ajax({
 			url: `<?php echo base_url('index.php/product/editProduct'); ?>`,
@@ -111,12 +126,46 @@ crossorigin="anonymous"></script>
 				ProductID: idData
 			},
 			success: (data) => {
-				idProduk.value = data[0].ProductID
-				produk.value = data[0].ProductName
-				kategori.value = data[0].Category
-				harga.value = data[0].Price
+				idProduk.value = data.ProductID
+				produk.value = data.ProductName
+				kategori.value = data.Category
+				harga.value = data.Price
+				imagePreview.src = `${baseUrl}assets/img/${data.Image}`;
 			}
 		})
 	}
+
+	function previewImage(){
+        const image = document.querySelector('#image');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+
+        oFReader.onload = function(oFREvent){
+          imgPreview.src = oFREvent.target.result;
+        }
+      }
+
+	  $(document).on('click', '#deleteData', function(e){
+		e.preventDefault();
+		var url = $(this).attr('href');
+
+		if (confirm("Apakah anda yakin ingin menghapus produk ini?")){
+			$.ajax({
+				url: url,
+				type: 'DELETE',
+				success: function(result){
+					alert('Product Berhasil Dihapus');
+					location.reload();
+				},
+				error: function(xhr, status, error){
+					alert('Terjadi Kesalahan'+error);
+				}
+			});
+		}
+	  });
 </script>
 

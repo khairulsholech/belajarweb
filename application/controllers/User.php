@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set("Asia/Jakarta");
 
 class User extends CI_Controller {
 
@@ -40,6 +41,21 @@ class User extends CI_Controller {
 	public function logout()
 	{
 		$this->session->sess_destroy();
+		redirect('user/login');
+	}
+
+	// register.. password encrypt
+	public function viewRegister() {
+		$this->load->view('register');
+	}
+
+	public function register_submit() {
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$isAdmin = $this->input->post('isAdmin');
+		$passwordEncrypt = md5($password);
+
+		$this->user_model->register($username, $passwordEncrypt, $isAdmin);
 		redirect('user/login');
 	}
 }

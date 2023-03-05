@@ -18,4 +18,24 @@ class User_model extends CI_Model {
         return $this->db->insert('products', $data);
     }
 
+	public function getUser(){
+		$this->db->select('*');
+		$this->db->from('users');
+		$this->db->where('UserID', 1);
+	
+		$query = $this->db->get();
+	
+		return $query->result_array();
+	}
+
+	public function register($username, $password, $isAdmin) {
+        $data = array(
+			'Username' => $username,
+			'Password' => $password,
+			'IsAdmin' => $isAdmin
+		);
+
+        $this->db->insert('users', $data);
+    }
+
 }
